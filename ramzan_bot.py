@@ -1,4 +1,4 @@
-import config
+import configramzan
 import telebot
 import random
 from bs4 import BeautifulSoup
@@ -51,6 +51,14 @@ def get_news(message):
 			news = news + news_title + "\n" + news_link + "\n\n"			
 	bot.send_message(message.chat.id, news)
 
+
+@bot.message_handler(commands=['weather'])
+def get_weather(message):
+	html = urllib.request.urlopen("https://www.gismeteo.ru/month/4618/")
+	soup = BeautifulSoup(html, 'lxml')
+	temperat = soup.find('div', class_='temp')
+	res_temp = temperat.find('span', class_='js_value val_to_convert').next_element
+	bot.send_message(message.chat.id, res_temp)
 
 if __name__ == '__main__':
 	bot.polling(none_stop=True)
