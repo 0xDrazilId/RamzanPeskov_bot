@@ -54,7 +54,7 @@ def get_news(message):
 
 @bot.message_handler(commands=['weather'])
 def get_weather(message):
-	html = urllib.request.urlopen("https://www.gismeteo.ru/city/daily/4618")
+	html = urllib.request.urlopen("https://www.yandex.ru/")
 	soup = BeautifulSoup(html, 'lxml')
 	temperat = soup.find('a', class_='home-link home-link_black_yes').get('aria-label')
 	bot.send_message(message.chat.id, temperat)
