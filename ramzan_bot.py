@@ -15,7 +15,7 @@ def get_traffic(message):
 	if (icon_traf[2] == "b-ico-traffic-gn"):
 		icontrf = "✅"
 		comment = "Спасибо, мистер Азаров"
-		bot.send_message(message.chat.id, "Яндекс говорит, что пробки в Самаре сейчас:\n" + icon_traf + " " + res_traf + "\n" + comment + "\n\nНу сам посмотри: https://yandex.ru/maps/51/samara/probki")
+		bot.send_message(message.chat.id, "Яндекс говорит, что пробки в Самаре сейчас:\n" + icontrf + " " + res_traf + "\n" + comment + "\n\nНу сам посмотри: https://yandex.ru/maps/51/samara/probki")
 	if (icon_traf[2] == "b-ico-traffic-yw"):
 		icontrf = "⚠️"
 		comment = "Пробки средненькие"
@@ -56,9 +56,8 @@ def get_news(message):
 def get_weather(message):
 	html = urllib.request.urlopen("https://www.gismeteo.ru/month/4618/")
 	soup = BeautifulSoup(html, 'lxml')
-	temperat = soup.find('div', class_='temp')
-	res_temp = temperat.find('span', class_='js_value val_to_convert').next_element
-	bot.send_message(message.chat.id, res_temp)
+	temperat = soup.find('a', class_='home-link home-link_black_yes').get('aria-label')
+	bot.send_message(message.chat.id, temperat)
 
 if __name__ == '__main__':
 	bot.polling(none_stop=True)
